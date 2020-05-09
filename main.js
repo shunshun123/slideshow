@@ -30,11 +30,39 @@
       thumbnails[currentIndex].classList.remove('current');
       currentIndex = index;
       thumbnails[currentIndex].classList.add('current');
-
     });
-
 
     li.appendChild(img);
     document.querySelector('.thumbnails').appendChild(li);
+  });
+
+  const next = document.getElementById('next');
+  next.addEventListener('click', () => {
+    let target = currentIndex + 1;
+    if (target === images.length) {
+      target = 0;
+    }
+    document.querySelectorAll('.thumbnails > li')[target].click();
+  });
+
+  const prev = document.getElementById('prev');
+  prev.addEventListener('click', () => {
+    let target = currentIndex - 1;
+    if (target < 0) {
+      target = images.length - 1;
+    }
+    document.querySelectorAll('.thumbnails > li')[target].click();
+  });
+
+  function playSlideshow() {
+    setTimeout(() => {
+      next.click();
+      playSlideshow();
+    }, 1000);
+  }
+
+  const play = document.getElementById('play');
+  play.addEventListener('click', () => {
+    playSlideshow();
   });
 }
